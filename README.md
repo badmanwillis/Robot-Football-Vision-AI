@@ -41,13 +41,14 @@ As the implementation of threading makes uses videos as the input more difficult
 
 
 ## Videos
-Videos of the application in action.
+Videos of the project through its development.
 
 
-## invariance to location
-reference videos and talk a bit
+## CNN MV application success
+Object recognition achieved in early March, with an ovefit model (dataset of less than 700 samples), to test code. [Link - CNN MV application success](https://www.youtube.com/watch?v=br7uWylh_Wc)
 
 ## invariance to obstruction
+Intended as a tool to speed up dataset labelling of position coordinates, this program had intended use in localisation from the model approach. [Link - Image Dataset Labelling Tool](https://www.youtube.com/watch?v=btqyVI-VSBE)
 
 ## invariance to enviroment
 
