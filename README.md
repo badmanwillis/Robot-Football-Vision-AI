@@ -46,23 +46,36 @@ Object recognition achieved in early March, with an ovefit model (dataset of les
 ## Image Dataset labelling tool.
 Intended as a tool to speed up dataset labelling of position coordinates, this program had intended use in localisation from the model approach. [Link - Image Dataset Labelling Tool](https://www.youtube.com/watch?v=btqyVI-VSBE). This was abandoned when the decision was made to focus on localisation via approximation, instead of via the network.
 
-## invariance to obstruction
-
-## invariance to enviroment
-
 ## invariance to lighting
 [Proj324 Results: Lighting in-variance](https://www.youtube.com/watch?v=O8hVivgu7Ws&t=7s). Shows how the model handles significant changes in lighting conditions, and continues to perform admirably even in extreme conditions. As the model is intended for use in a controlled lighting enviroment, the lighting conditions in the video were deliberately intended to push the model to its limits.
 
+## invariance to obstruction
+[Proj324 Results: Obstruction](https://www.youtube.com/watch?v=0-cShehl2UI). Shows how the model is affected by obstruction of the subject. This is a real strength of deep learning over traditional machine vision techniques, as the model is able to recongise a football even with near total obstruction at close range. This also means the model can recognise the ball when it is only partially in the frame.
+
+## invariance to enviroment
+[Proj324 Results: Football Interaction](https://www.youtube.com/watch?v=qwCGQnRDnJs). The model is able to recognise the ball in different enviroments. As the majority of the dataset was collected in the robot football lab, the models performance is skewed in favour of the green pitch. Likewise, the majority of the dataset acquired in the Smeaton 303 lab was of the ball on the floor; thus the model performs better when the ball is on the floor, as opposed to being held.
+[Proj324 Results: White pitch lines](https://www.youtube.com/watch?v=JlTMLxJ_Wco). The model performs best in its target enviroment and lighting conditions. An earlier dataset had trouble recognising the balls when they were over the white pitch lines. By collecting more data specific to the problem (images of the balls on the lines, and images of the lines sans balls) the model was able to easly overcome this problem.
+
+## precise object localisation
+The results videos referenced thus far include approximate localisation of the ball for five regions (four corners, and a central region). The video [Object localisation testing](https://www.youtube.com/watch?v=9LW5Gw9NsRU) shows how use of the OpenCv [HoughCircles](http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_houghcircles/py_houghcircles.html) could be used to further establish a precise location of the ball. However this approach was extremely slow, as the function would return as many circles as it could find, which could cause the application to slow down dramatically.
 
 ## real-time performance
 The model averages close to 30fps when a ball is not detected, but slows down to 2fps when localising the ball. This is due to a poor software implementation of localisation. Most of the project time was spent researching localisation from a network, and once that was scrapped, limited time was available to develop a high performance region approximation application. Improvements are discussed as part of future work, problems with the current approach are listed below.
 
 * Program is written in python, not C.
-* Program saves images from the webcam to a folder, then reads those images back in to make predictions. This is a tedious approach, but making predictions
+* Program saves images from the webcam to a folder, then reads those images back in to make predictions, making use of the predict_generator keras functionality. This is a tedious approach, but making predictions with keras model.predict proved problematic.
 
 
 # Future work
 For anyone intending to use this work, here are the intentions for developing the projecct going forward.
+
+* Localisation from a network, using segmentation.
+* Writing the machine vision application in C, and implementing a more efficient keras prediction function.
+* Deploying the model to a smaller embedded platform, such as a Raspberry Pi, or Odroid board.
+* Adding additional classes, such as the goals, specific location features (corners, edges, center) of the pitch, and robots.
+* Further model performance improvements, such as hyper parameter grid search.
+* Further dataset improvements, including an analysis of training image size, grayscale etc.
+* Combining the object localisation model with fixed stereo vision to provide real-time depth information. 
 
 
 
